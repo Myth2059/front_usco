@@ -1,0 +1,139 @@
+<p-dialog
+  (visibleChange)="onclose()"
+  class="[&_.p-dialog-header]:!py-[0.6rem] [&_.p-dialog-header]:!px-[1.5rem] [&_.infContainer]:w-[250px] [&_.infContainer]:border [&_label]:font-medium [&_label]:text-sm"
+  [header]="data?.nombre"
+  [(visible)]="isVisible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="w-full flex justify-center items-center">
+    <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+    <div *ngIf="!isLoading" class="flex flex-col gap-4">
+      <div class="overflow-hidden h-48 mb-4">
+        <img [src]="data?.imgurl" alt="" />
+      </div>
+      <div class="flex flex-col">
+        <div class="infContainer">
+          <div class="flex gap-2">
+            <label clas for="">Nombre</label>
+            <i
+              class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
+            ></i>
+          </div>
+          <div>
+            <span>{{ data?.nombre }}</span>
+          </div>
+        </div>
+        <div class="infContainer">
+          <div>
+            <label for="">local</label
+            ><i
+              class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
+            ></i>
+          </div>
+          <div>
+            <span>{{ data?.ubicacion }}</span>
+          </div>
+        </div>
+        <!--PROPIETARIO-->
+        <hr class="my-3" />
+        <div class="flex flex-wrap gap-4 mb-4">
+          <div class="infContainer">
+            <div>
+              <label for="">propietario</label
+              ><i
+                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
+              ></i>
+            </div>
+            <div>
+              <span>{{ data?.name }} {{ data?.lastname }}</span>
+            </div>
+          </div>
+          <app-editable-field [data]="data?.categoria" [title]="'Prueba'"></app-editable-field>
+
+          <div class="infContainer">
+            <div>
+              <label for="">telefono</label
+              ><i
+                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
+              ></i>
+            </div>
+            <div>
+              <span>{{ data?.phone }}</span>
+            </div>
+          </div>
+          <div class="infContainer">
+            <div>
+              <label for="">rol</label
+              ><i
+                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
+              ></i>
+            </div>
+            <div>
+              <span>
+                {{ data?.rol }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <hr class="my-3" />
+        <!--LOCAL-->
+        <div class="flex flex-wrap gap-4 mb-4">
+          <div class="infContainer">
+            <div>
+              <label for="">estado</label
+              ><i
+                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
+              ></i>
+            </div>
+            <div>
+              <span>{{ data?.estado }}</span>
+            </div>
+          </div>
+          <div class="infContainer">
+            <div>
+              <label>categoria</label
+              ><i
+                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
+              ></i>
+            </div>
+            <div>
+              <span>{{ data?.categoria }}</span>
+            </div>
+          </div>
+          <div class="infContainer">
+            <div>
+              <label for="">imgUrl</label
+              ><i
+                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
+              ></i>
+            </div>
+            <div>
+              <span>{{ data?.imgurl }}</span>
+            </div>
+          </div>
+        </div>
+        <!--DETALLES-->
+        <hr class="my-3" />
+        <div>
+          <div class="infContainer">
+            <div>
+              <label for="">Detalles</label
+              ><i
+                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
+              ></i>
+            </div>
+            <div>
+              <span>{{ data?.detalles }}</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>

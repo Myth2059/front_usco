@@ -1,0 +1,214 @@
+<app-menu-nav></app-menu-nav>
+<div class="flex flex-col justify-center items-center">
+  <p-toast></p-toast>
+  <h2 class="text-2xl font-semibold my-6">Administración</h2>
+  <div class="card flex justify-content-center max-w-5xl">
+    <p-accordion [activeIndex]="0">
+      <p-accordionTab header="Usuario">
+        <div>
+          <h2 class="mb-4 font-semibold">Datos</h2>
+          <div>
+            <form
+              class="flex flex-col gap-4 justify-between"
+              onsubmit=""
+              [formGroup]="newUserForm"
+              (ngSubmit)="createUser()"
+            >
+              <div class="flex flex-wrap gap-4 justify-between">
+                <div class="flex flex-col gap-2">
+                  <label for="id">Cedula</label>
+                  <p-inputNumber
+                    [class]="errorsUserForm['id']"
+                    [required]="true"
+                    id="id"
+                    formControlName="id"
+                    name="id"
+                    mode="decimal"
+                    inputId="id"
+                    [useGrouping]="false"
+                  >
+                  </p-inputNumber>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="name">Nombre</label>
+                  <input
+                  [class]="errorsUserForm['name']"
+                    [required]="true"
+                    name="name"
+                    pInputText
+                    id="name"
+                    formControlName="name"
+                  />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="lastname">Apellido</label>
+                  <input
+                  [class]="errorsUserForm['lastname']"
+                    [required]="true"
+                    name="lastname"
+                    pInputText
+                    id="lastname"
+                    formControlName="lastname"
+                  />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="tel">Celular</label>
+                  <p-inputNumber
+                    [required]="true"
+                    formControlName="tel"
+                    [class]="errorsUserForm['tel']"
+                    id="tel"
+                    name="tel"
+                    mode="decimal"
+                    inputId="tel"
+                    [useGrouping]="false"
+                  >
+                  </p-inputNumber>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="password">Password</label>
+                  <p-password
+                    required
+                    [class]="errorsUserForm['password']"
+                    name="password"
+                    formControlName="password"
+                    [feedback]="false"
+                  ></p-password>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="rol">Rol</label>
+                  <p-dropdown
+                    [class]="'[&_span]:!w-[200px]'"
+                    (onChange)="onChangeRol($event)"
+                    [required]="true"
+                    [options]="roles"
+                    name="rol"
+                    formControlName="rol"
+                    optionLabel="rol"
+                    [showClear]="false"
+                    placeholder="Selecciona un Rol"
+                  ></p-dropdown>
+                </div>
+              </div>
+              <p-button
+                class="self-center justify-self-center"
+                type="Submit"
+                label="Enviar"
+              ></p-button>
+            </form>
+            <div class="flex justify-center mt-10"></div>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab header="Local">
+        <div>
+          <h2 class="mb-4 font-semibold">Datos</h2>
+          <div>
+            <form
+              class="flex flex-col gap-4 justify-between"
+              onsubmit=""
+              [formGroup]="newLocalForm"
+              (ngSubmit)="createLocal()"
+            >
+              <div class="flex flex-wrap gap-4 justify-between">
+                <div class="flex flex-col gap-2">
+                  <label for="user_id">Cedula Propietario</label>
+                  <p-inputNumber
+                    [required]="true"
+                    [class]="errorLocalForm['user_id']"
+                    id="user_id"
+                    formControlName="user_id"
+                    name="user_id"
+                    mode="decimal"
+                    inputId="user_id"
+                    [useGrouping]="false"
+                  >
+                  </p-inputNumber>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="nombreLocal">Nombre Local</label>
+                  <input
+                    [required]="true"
+                    [class]="errorLocalForm['nombre']"
+                    name="nombreLocal"
+                    pInputText
+                    id="nombreLocal"
+                    formControlName="nombre"
+                  />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="ubicacion">Ubicacion</label>
+                  <p-inputNumber
+                    [required]="true"
+                    [class]="errorLocalForm['ubicacion']"
+                    formControlName="ubicacion"
+                    id="ubicacion"
+                    name="ubicacion"
+                    mode="decimal"
+                    inputId="ubicacion"
+                    [useGrouping]="false"
+                  >
+                  </p-inputNumber>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="rol">Estado</label>
+                  <p-dropdown
+                    [class]="'[&_span]:!w-[200px]'"
+                    (onChange)="onChangeEstado($event)"
+                    [required]="true"
+                    [options]="estados"
+                    name="estado"
+                    formControlName="estado"
+                    optionLabel="estado"
+                    [showClear]="false"
+                    placeholder="Selecciona un Estado"
+                  ></p-dropdown>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="categoria">Categoria</label>
+                  <p-cascadeSelect
+                  [required]="true"
+                  id="categoria"
+                    formControlName="selectedCat"
+                    [options]="categorias"
+                    optionLabel="name"
+                    optionGroupLabel="name"
+                    [optionGroupChildren]="['subCategoria']"
+                    [style]="{ width: '16rem' }"
+                    (onChange)="onCascadeSelectChange($event)"
+                    placeholder="Selecciona una categoria"
+                    (onGroupChange)="onCascadeSelectChange($event)"
+                  ></p-cascadeSelect>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                  <label for="imgurl">Imagen url</label>
+                  <input
+                  [class]="errorLocalForm['imgurl']"
+                    [required]="true"
+                    name="imgurl"
+                    pInputText
+                    id="imgurl"
+                    formControlName="imgurl"
+                  />
+               
+                </div>
+                <div class="flex flex-col gap-2 ml-[50%] -translate-x-1/2">
+                  <label for="imgurl">Detalles</label>
+                  <textarea (oninput)="onChangeTextarea($event)" rows="5" cols="30" pInputTextarea formControlName="detalles"></textarea>
+
+                </div>
+              </div>
+              <p-button
+                class="self-center justify-self-center"
+                type="Submit"
+                label="Enviar"
+              ></p-button>
+            </form>
+            <div class="flex justify-center mt-10"></div>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</div>
