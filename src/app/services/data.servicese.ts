@@ -54,7 +54,18 @@ export class DataService {
 
 
 
+    async deleteLocal(id:number,admin_id:number){
+        const headers = {
+            'Authorization':this.cookieService.get('token')
+        }
+        var body:any={id:id,admin_id:admin_id};
+        console.log(body);
+        
+        const response = (await axios.delete<IResponse>(`${this.apiUrl}/deletelocal`,{data:body})).data;
 
+        return response;
+
+    }
 
 
         async createUser(user:IUser):Promise<IResponse>{
@@ -96,6 +107,10 @@ export class DataService {
 
         async updateLocal(body:any):Promise<IResponse>{
             const response = (await axios.put<IResponse>(`${this.apiUrl}/updatelocal`,body)).data;
+            return response;
+        }
+        async updateUser(body:any):Promise<IResponse>{
+            const response = (await axios.put<IResponse>(`${this.apiUrl}/updateuser`,body)).data;
             return response;
         }
 

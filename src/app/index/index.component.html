@@ -1,5 +1,9 @@
 <app-menu-nav></app-menu-nav>
-<div *ngIf="data" class="flex gap-10 p-16 flex-wrap justify-center [&_.p-card-footer]:!pt-0 [&_.p-card-body]:flex [&_.p-card-body]:flex-col [&_.p-card-body]:!pb-0">
+
+<div>
+ <!-- <h2 class="text-lg font-semibold ml-[50%] -translate-x-1/2  ">Nuestras tiendas</h2> -->
+<div *ngIf="data" class="flex gap-10 pt-8 p-16 flex-wrap justify-start [&_.p-card-footer]:!pt-0 [&_.p-card-body]:flex [&_.p-card-body]:flex-col [&_.p-card-body]:!pb-0">
+    
 <div *ngFor="let local of data" >
     <p-card [header]="local.nombre" class="[&_.p-card-content]:!py-0 [&_.p-card-header]:h-28 [&_.p-card-header]:relative [&_img]:-translate-y-[33%] [&_.p-card-header]:overflow-hidden" styleClass="flex flex-col [&_.p-card-body]:h-[220px] [&_.p-card-title]:!mb-0 [&_.p-card-content_p]:h-[80px] [&_.p-card-content_p]: [&_.p-card-content_p]:text-ellipsis [&_.p-card-content_p]:line-clamp-4 [&_.p-card-content_p]:overflow-hidden  [&_.p-card-content_p]:whitespace-normal" [subheader]="'Local:'+local.ubicacion"[style]="{height:'350px' ,width:'310px' }">
         <ng-template pTemplate="header" >
@@ -18,7 +22,7 @@
            <div class="flex justify-between mt-[41px]">
             <div class="flex-grow text-sm font-light">{{local.categoria}} > {{local.subcategoria}}</div>
             
-                <div class="flex w-6 justify-center cursor-pointer items-center" *ngIf="isAdmin"><i class="pi pi-trash hover:text-red-600 w-5 h-5 !flex justify-center items-center"></i></div>
+                <div *ngIf="userServices.isAdmin()" (click)="deleteLocal($event,local.id!)" class="flex w-6 justify-center cursor-pointer items-center" > <p-confirmPopup></p-confirmPopup> <p-toast key="delete"></p-toast><i class="pi pi-trash hover:text-red-600 w-5 h-5 !flex justify-center items-center"></i></div>
             
            </div>
         </ng-template>
@@ -26,4 +30,5 @@
     </p-card>
 </div>
 <app-preview-modal [(isLoading)]="isLoading" [id]="id" [(isVisible)]="isVisible"></app-preview-modal>
+</div>
 </div>

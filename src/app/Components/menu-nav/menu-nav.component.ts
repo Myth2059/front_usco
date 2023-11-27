@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { UserServices } from 'src/app/services/user.services';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class MenuNavComponent {
       }
     });
    }
-
+   userServices = inject(UserServices);
 
 
     deleteCookies(){
@@ -43,7 +44,7 @@ export class MenuNavComponent {
 
       this.items = [
           { label: 'Inicio',routerLink:'/', icon: 'pi pi-fw pi-home' },
-          { label: 'Administración',routerLink:'/administracion', icon: 'pi pi-fw pi-cog' },
+          { label: 'Administración',routerLink:'/administracion', icon: 'pi pi-fw pi-cog' ,visible:this.userServices.isAdmin()},
           { label: 'Informes',routerLink:'/informes', icon: 'pi pi-fw pi-pencil' },
           { label: 'Salir', icon: 'pi pi-fw pi-pencil', command:(event)=>{
             this.deleteCookies();

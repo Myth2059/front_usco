@@ -27,6 +27,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PreviewModalComponent } from './Components/preview-modal/preview-modal.component';
 import { DialogModule } from 'primeng/dialog';
 import { EditableFieldComponent } from './Components/editable-field/editable-field.component';
+import { EncodeUriPipe } from './encode-uri.pipe';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+
 
 
 
@@ -40,6 +43,7 @@ import { EditableFieldComponent } from './Components/editable-field/editable-fie
     InformesComponent,
     PreviewModalComponent,
     EditableFieldComponent,
+    EncodeUriPipe,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,8 @@ import { EditableFieldComponent } from './Components/editable-field/editable-fie
     ProgressSpinnerModule,
     ToastModule,
     InputTextareaModule,
-    DialogModule
+    DialogModule,
+    ConfirmPopupModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

@@ -2,7 +2,7 @@
     <p-toast key="modalToast"></p-toast>
     <div class="flex gap-1">
       <label [class]="' p-1'"  >{{title}}</label>
-      <i (click)="Editar()" *ngIf="!editable" pTooltip="Editar" class="pi pi-pencil cursor-pointer text-[#496dc1] !text-[0.7rem] !flex justify-center items-center"></i>
+      <i (click)="Editar()" *ngIf="!editable && (onlyAdmin ? userServices.isAdmin():(userServices.isAdmin() || userServices.isOwner(''+user_id)))" pTooltip="Editar" class="pi pi-pencil cursor-pointer text-[#496dc1] !text-[0.7rem] !flex justify-center items-center"></i>
     </div>
     <div *ngIf="!editable">
       <span [class]="labelStyle+' p-1 font-semibold'">{{data}}</span>
@@ -71,9 +71,11 @@
 
     <div *ngIf="editable && type=='textArea'" class="flex flex-col">
       
-        <textarea [class]="customStyle"  rows="5" cols="30" pInputTextarea formControlName="detalles"></textarea>
+        <textarea [class]="customStyle"  rows="5" cols="30" pInputTextarea [(ngModel)]="newValue"></textarea>
+        <div class="flex justify-end mt-2">
                   <p-button [disabled]="buttonDisabled" (onClick)="Actualizar()" class="[&_button]:!w-[37px] [&_button]:!h-[37px] mx-1" severity="success" icon="pi pi-check"></p-button>
                   <p-button [disabled]="buttonDisabled" (onClick)="closeEdit()" class="[&_button]:!w-[37px] [&_button]:!h-[37px]" severity="danger" icon="pi pi-times"></p-button>
+                </div>
     </div>
 
     <div *ngIf="editable && type=='rol'" class="flex">

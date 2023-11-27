@@ -1,6 +1,6 @@
 <p-dialog
   (visibleChange)="onclose()"
-  class="[&_.p-dialog-header]:!py-[0.6rem] [&_.p-dialog-header]:!px-[1.5rem] [&_.infContainer]:w-[250px] [&_.infContainer]:border [&_label]:font-medium [&_label]:text-sm"
+  class="flex justify-center [&_.p-dialog-content]:!overflow-visible [&_.p-dialog-header]:!py-[0.6rem] [&_.p-dialog-header]:!px-[1.5rem] [&_.infContainer]:w-[250px] [&_.infContainer]:border [&_label]:font-medium [&_label]:text-sm"
   [header]="data?.nombre"
   [(visible)]="isVisible"
   [modal]="true"
@@ -14,27 +14,30 @@
   <div class="w-full flex justify-center items-center">
     <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
     <div *ngIf="!isLoading" class="flex flex-col gap-4">
-      <div class="overflow-hidden h-48 mb-4">
-        <img class="-translate-y-1/3" [src]="data?.imgurl" alt="" />
+      <div class="overflow-hidden h-48 mb-4 flex bg-center bg-cover bg-no-repeat" [style]="'background-image: url('+data?.imgurl +');'">
+       
+        <!-- <img class="-translate-y-1/3 flex-1" [src]="data?.imgurl" alt="" /> -->
       </div>
-      <div class="">
-        <app-editable-field title="Nombre Local" [id]="data?.id!" [data]="data?.nombre!" [(editable)]="editableStatus['nombre']" idNameTable="nombre" [type]="'text'"></app-editable-field>
-        <app-editable-field title="Local" [id]="data?.ubicacion" [data]="data?.ubicacion!" [(editable)]="editableStatus['ubicacion']" idNameTable="ubicacion" [type]="'number'"></app-editable-field>
+      <div class="-mt-4">
+        <app-editable-field [user_id]="data?.user_id" [onlyAdmin]="false" title="Nombre Local" [id]="data?.id!" [data]="data?.nombre!" [(editable)]="editableStatus['nombre']" idNameTable="nombre" [type]="'text'"></app-editable-field>
+        <app-editable-field [user_id]="data?.user_id" [onlyAdmin]="true" title="Local" [id]="data?.ubicacion" [data]="data?.ubicacion!" [(editable)]="editableStatus['ubicacion']" idNameTable="ubicacion" [type]="'number'"></app-editable-field>
       </div>
       <hr>
       <div class="flex flex-wrap gap-8 gap-y-2">
-        <app-editable-field title="Nombre Propietario" [id]="data?.id!" [data]="data?.name!" [(editable)]="editableStatus['name']" idNameTable="name" [type]="'text'"></app-editable-field>
-        <app-editable-field title="Apellido Propietario" [id]="data?.id!" [data]="data?.lastname!" [(editable)]="editableStatus['lastname']" idNameTable="lastname" [type]="'text'"></app-editable-field>
-        <app-editable-field title="Telefono/Cel" [id]="data?.id!" [data]="data?.phone!" [(editable)]="editableStatus['phone']" idNameTable="phone" [type]="'number'"></app-editable-field>
-        <app-editable-field title="Rol" [id]="data?.id!" [data]="data?.rol!" [(editable)]="editableStatus['rol']" idNameTable="rol" [type]="'rol'"></app-editable-field>
+        <app-editable-field [user_id]="data?.user_id" [onlyAdmin]="false" title="Nombre Propietario" [id]="data?.id!" [data]="data?.name!" [(editable)]="editableStatus['name']" idNameTable="name" [type]="'text'"></app-editable-field>
+        <app-editable-field [user_id]="data?.user_id" [onlyAdmin]="false" title="Apellido Propietario" [id]="data?.id!" [data]="data?.lastname!" [(editable)]="editableStatus['lastname']" idNameTable="lastname" [type]="'text'"></app-editable-field>
+        <app-editable-field [user_id]="data?.user_id" [onlyAdmin]="false" title="Telefono/Cel" [id]="data?.id!" [data]="data?.phone!" [(editable)]="editableStatus['phone']" idNameTable="phone" [type]="'number'"></app-editable-field>
+        <app-editable-field [user_id]="data?.user_id" [onlyAdmin]="true" title="Rol" [id]="data?.id!" [data]="data?.rol!" [(editable)]="editableStatus['rol']" idNameTable="rol" [type]="'rol'"></app-editable-field>
         
       </div>
       <hr>
       <div class="flex flex-wrap gap-8">
-        <app-editable-field title="Categoria" [id]="data?.id!" [data]="data?.categoria!+' > '+data?.subcategoria" [(editable)]="editableStatus['categoria']" idNameTable="categoria" [type]="'categoria'"></app-editable-field>
-        <app-editable-field title="Estado" [id]="data?.id!" [data]="data?.estado!" [(editable)]="editableStatus['estado']" idNameTable="estado" [type]="'estado'"></app-editable-field>        
-        <app-editable-field labelStyle="text-sm" title="Url Imagen" [id]="data?.id!" [data]="data?.imgurl!" [(editable)]="editableStatus['imgurl']" idNameTable="imgurl" [type]="'text'"></app-editable-field>
+        <app-editable-field [user_id]="data?.user_id" [onlyAdmin]="false" title="Categoria" [id]="data?.id!" [data]="data?.categoria!+' > '+data?.subcategoria" [(editable)]="editableStatus['categoria']" idNameTable="categoria" [type]="'categoria'"></app-editable-field>
+        <app-editable-field [user_id]="data?.user_id" [onlyAdmin]="true" title="Estado" [id]="data?.id!" [data]="data?.estado!" [(editable)]="editableStatus['estado']" idNameTable="estado" [type]="'estado'"></app-editable-field>        
+        <app-editable-field [user_id]="data?.user_id" [onlyAdmin]="false" class="" labelStyle="text-sm min-w-0 text-ellipsis overflow-hidden max-w-[250px] block h-[25px]" title="Url Imagen" [id]="data?.id!" [data]="data?.imgurl!" [(editable)]="editableStatus['imgurl']" idNameTable="imgurl" [type]="'text'"></app-editable-field>
       </div>
+      <hr>
+      <app-editable-field [user_id]="data?.user_id" title="Detalles" [onlyAdmin]="false" [id]="data?.id!" [data]="data?.detalles!" [(editable)]="editableStatus['detalles']" idNameTable="detalles" [type]="'textArea'"></app-editable-field>
     </div>
   </div>
 
