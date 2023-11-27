@@ -94,6 +94,11 @@ export class DataService {
             return response;    
         }
 
+        async updateLocal(body:any):Promise<IResponse>{
+            const response = (await axios.put<IResponse>(`${this.apiUrl}/updatelocal`,body)).data;
+            return response;
+        }
+
 
 }
 

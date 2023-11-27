@@ -7,133 +7,35 @@
   [style]="{ width: '50vw' }"
   [draggable]="false"
   [resizable]="false"
+  (onHide)="onclose()"
+  
+
 >
   <div class="w-full flex justify-center items-center">
     <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
     <div *ngIf="!isLoading" class="flex flex-col gap-4">
       <div class="overflow-hidden h-48 mb-4">
-        <img [src]="data?.imgurl" alt="" />
+        <img class="-translate-y-1/3" [src]="data?.imgurl" alt="" />
       </div>
-      <div class="flex flex-col">
-        <div class="infContainer">
-          <div class="flex gap-2">
-            <label clas for="">Nombre</label>
-            <i
-              class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
-            ></i>
-          </div>
-          <div>
-            <span>{{ data?.nombre }}</span>
-          </div>
-        </div>
-        <div class="infContainer">
-          <div>
-            <label for="">local</label
-            ><i
-              class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
-            ></i>
-          </div>
-          <div>
-            <span>{{ data?.ubicacion }}</span>
-          </div>
-        </div>
-        <!--PROPIETARIO-->
-        <hr class="my-3" />
-        <div class="flex flex-wrap gap-4 mb-4">
-          <div class="infContainer">
-            <div>
-              <label for="">propietario</label
-              ><i
-                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
-              ></i>
-            </div>
-            <div>
-              <span>{{ data?.name }} {{ data?.lastname }}</span>
-            </div>
-          </div>
-          <app-editable-field [data]="data?.categoria" [title]="'Prueba'"></app-editable-field>
-
-          <div class="infContainer">
-            <div>
-              <label for="">telefono</label
-              ><i
-                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
-              ></i>
-            </div>
-            <div>
-              <span>{{ data?.phone }}</span>
-            </div>
-          </div>
-          <div class="infContainer">
-            <div>
-              <label for="">rol</label
-              ><i
-                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
-              ></i>
-            </div>
-            <div>
-              <span>
-                {{ data?.rol }}
-              </span>
-            </div>
-          </div>
-        </div>
-        <hr class="my-3" />
-        <!--LOCAL-->
-        <div class="flex flex-wrap gap-4 mb-4">
-          <div class="infContainer">
-            <div>
-              <label for="">estado</label
-              ><i
-                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
-              ></i>
-            </div>
-            <div>
-              <span>{{ data?.estado }}</span>
-            </div>
-          </div>
-          <div class="infContainer">
-            <div>
-              <label>categoria</label
-              ><i
-                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
-              ></i>
-            </div>
-            <div>
-              <span>{{ data?.categoria }}</span>
-            </div>
-          </div>
-          <div class="infContainer">
-            <div>
-              <label for="">imgUrl</label
-              ><i
-                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
-              ></i>
-            </div>
-            <div>
-              <span>{{ data?.imgurl }}</span>
-            </div>
-          </div>
-        </div>
-        <!--DETALLES-->
-        <hr class="my-3" />
-        <div>
-          <div class="infContainer">
-            <div>
-              <label for="">Detalles</label
-              ><i
-                class="pi pi-pencil cursor-pointer text-slate-500 text-[0.8rem]"
-              ></i>
-            </div>
-            <div>
-              <span>{{ data?.detalles }}</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <p></p>
-        </div>
+      <div class="">
+        <app-editable-field title="Nombre Local" [id]="data?.id!" [data]="data?.nombre!" [(editable)]="editableStatus['nombre']" idNameTable="nombre" [type]="'text'"></app-editable-field>
+        <app-editable-field title="Local" [id]="data?.ubicacion" [data]="data?.ubicacion!" [(editable)]="editableStatus['ubicacion']" idNameTable="ubicacion" [type]="'number'"></app-editable-field>
+      </div>
+      <hr>
+      <div class="flex flex-wrap gap-8 gap-y-2">
+        <app-editable-field title="Nombre Propietario" [id]="data?.id!" [data]="data?.name!" [(editable)]="editableStatus['name']" idNameTable="name" [type]="'text'"></app-editable-field>
+        <app-editable-field title="Apellido Propietario" [id]="data?.id!" [data]="data?.lastname!" [(editable)]="editableStatus['lastname']" idNameTable="lastname" [type]="'text'"></app-editable-field>
+        <app-editable-field title="Telefono/Cel" [id]="data?.id!" [data]="data?.phone!" [(editable)]="editableStatus['phone']" idNameTable="phone" [type]="'number'"></app-editable-field>
+        <app-editable-field title="Rol" [id]="data?.id!" [data]="data?.rol!" [(editable)]="editableStatus['rol']" idNameTable="rol" [type]="'rol'"></app-editable-field>
+        
+      </div>
+      <hr>
+      <div class="flex flex-wrap gap-8">
+        <app-editable-field title="Categoria" [id]="data?.id!" [data]="data?.categoria!+' > '+data?.subcategoria" [(editable)]="editableStatus['categoria']" idNameTable="categoria" [type]="'categoria'"></app-editable-field>
+        <app-editable-field title="Estado" [id]="data?.id!" [data]="data?.estado!" [(editable)]="editableStatus['estado']" idNameTable="estado" [type]="'estado'"></app-editable-field>        
+        <app-editable-field labelStyle="text-sm" title="Url Imagen" [id]="data?.id!" [data]="data?.imgurl!" [(editable)]="editableStatus['imgurl']" idNameTable="imgurl" [type]="'text'"></app-editable-field>
       </div>
     </div>
   </div>
+
 </p-dialog>

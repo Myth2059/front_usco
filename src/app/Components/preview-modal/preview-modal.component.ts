@@ -15,16 +15,34 @@ export class PreviewModalComponent {
 @Input() isLoading:boolean = true;
 @Output() isLoadingChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+editableStatus:IEditable={
+  "name": false,
+  "lastname": false,
+  "phone": false,
+  "rol": false,
+  "nombre": false,
+  "ubicacion": false,
+  "estado": false,
+  "categoria": false,
+  "subcategoria": false,
+  "imgurl": false,
+  "user_id": false,
+}
 
 data:IUserNLocal | undefined;
 
 onclose(){
 
   this.isVisibleChange.emit(false);
-  this.idChange.emit(undefined);
-  setTimeout(() => {
-    this.isLoadingChange.emit(true);
-  }, 500);
+  this.idChange.emit(undefined); 
+  this.isLoadingChange.emit(true);
+  for (let key in this.editableStatus) {
+    if (Object.prototype.hasOwnProperty.call(this.editableStatus, key)) {
+       this.editableStatus[key] = false;
+      
+    }
+  }
+ 
   
 }
 
@@ -39,10 +57,24 @@ ngOnChanges(changes: SimpleChanges):void {
 loadData(){
    this.dataService.getLocal(this.id!).then((response)=>{
     this.data = {...response};
-    this.isLoading=false;
+    this.isLoadingChange.emit(false);
    });
 }
 
 }
 
 
+interface IEditable{
+  "name": boolean,
+  "lastname": boolean,
+  "phone": boolean,
+  "rol": boolean,
+  "nombre": boolean,
+  "ubicacion": boolean,
+  "estado": boolean,
+  "categoria": boolean,
+  "subcategoria": boolean,
+  "imgurl": boolean,
+  "user_id": boolean,
+  [key:string]:boolean
+}

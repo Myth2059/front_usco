@@ -19,6 +19,8 @@ isVisible=false;
 isLoading=true;
 id:number | undefined=undefined;
 
+
+
 async showModal(id:number){
   this.id=id;
   this.isVisible = true;
@@ -38,3 +40,4 @@ async showModal(id:number){
 
   }
 }
+

@@ -10,7 +10,7 @@
         </ng-template>
         <ng-template pTemplate="content">
             <p class="text-sm text-justify font-semibold">           
-                
+        
             {{local.detalles}}
             </p>
         </ng-template>
@@ -25,5 +25,5 @@
     
     </p-card>
 </div>
-<app-preview-modal [id]="id" [(isVisible)]="isVisible"></app-preview-modal>
+<app-preview-modal [(isLoading)]="isLoading" [id]="id" [(isVisible)]="isVisible"></app-preview-modal>
 </div>

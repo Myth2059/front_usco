@@ -1,9 +1,94 @@
-<div class="infContainer2 w-[250px] border">
+<div class="w-auto">
+    <p-toast key="modalToast"></p-toast>
     <div class="flex gap-1">
-      <label clas for="">{{title}}</label>
-      <i pTooltip="Editar" class="pi pi-pencil cursor-pointer text-[#496dc1] !text-[0.7rem] !flex justify-center items-center"></i>
+      <label [class]="' p-1'"  >{{title}}</label>
+      <i (click)="Editar()" *ngIf="!editable" pTooltip="Editar" class="pi pi-pencil cursor-pointer text-[#496dc1] !text-[0.7rem] !flex justify-center items-center"></i>
     </div>
-    <div>
-      <span>{{data}}</span>
+    <div *ngIf="!editable">
+      <span [class]="labelStyle+' p-1 font-semibold'">{{data}}</span>
+    </div>
+    <div *ngIf="editable && type=='text'" class="flex">
+        <input
+                    [required]="true"
+                    [class]="customStyle+' !p-1 !w-[200px]'"
+                    [name]="idNameTable"
+                    pInputText
+                    [id]="idNameTable"
+                    [(ngModel)]="newValue"
+                  />
+                  <p-button [disabled]="buttonDisabled" (onClick)="Actualizar()" class="[&_button]:!w-[37px] [&_button]:!h-[37px] mx-1" severity="success" icon="pi pi-check"></p-button>
+                  <p-button [disabled]="buttonDisabled" (onClick)="closeEdit()" class="[&_button]:!w-[37px] [&_button]:!h-[37px]" severity="danger" icon="pi pi-times"></p-button>
+    </div>
+    <div *ngIf="editable && type=='number'" class="flex">
+        <p-inputNumber
+        [required]="true"
+        [class]="customStyle+' !p-1 !w-[200px]'"
+        inputStyleClass="!p-1 !w-[200px]"
+        [inputId]="idNameTable"
+        [name]="idNameTable"
+        mode="decimal"
+        [useGrouping]="false"
+        [id]="idNameTable"
+        [(ngModel)]="newValue"
+      >
+      </p-inputNumber>
+                  <p-button [disabled]="buttonDisabled" (onClick)="Actualizar()" class="[&_button]:!w-[37px] [&_button]:!h-[37px] mx-1" severity="success" icon="pi pi-check"></p-button>
+                  <p-button [disabled]="buttonDisabled" (onClick)="closeEdit()" class="[&_button]:!w-[37px] [&_button]:!h-[37px]" severity="danger" icon="pi pi-times"></p-button>
+    </div>
+
+    <div *ngIf="editable && type=='estado'" class="flex">
+        <p-dropdown
+        [class]="customStyle+' [&_span]:!w-[150px] [&_span]:!h-[37px] [&_span]:items-center [&_span]:!p-1 [&_.p-dropdown-trigger]:!w-8 [&_.p-dropdown-trigger]:!h-[37px]'"
+        [required]="true"
+        [options]="estados"
+        [name]="idNameTable"
+        optionLabel="estado"
+        [showClear]="false"
+        [id]="idNameTable"
+        [(ngModel)]="newValue"
+        placeholder="Selecciona un Estado"
+      ></p-dropdown>
+                  <p-button [disabled]="buttonDisabled" (onClick)="Actualizar()" class="[&_button]:!w-[37px] [&_button]:!h-[37px] mx-1" severity="success" icon="pi pi-check"></p-button>
+                  <p-button [disabled]="buttonDisabled" (onClick)="closeEdit()" class="[&_button]:!w-[37px] [&_button]:!h-[37px]" severity="danger" icon="pi pi-times"></p-button>
+    </div>
+
+    <div *ngIf="editable && type=='categoria'" class="flex">
+        <p-cascadeSelect
+        id="categoria"
+          [options]="categorias"
+          optionLabel="name"
+          [class]="customStyle+' [&_span]:!h-[37px] [&_span]:!p-1'"
+          optionGroupLabel="name"
+          [optionGroupChildren]="['subCategoria']"
+          [style]="{ width: '16rem' }"
+          (onChange)="onCascadeSelectChange($event)"
+          placeholder="Selecciona una categoria"
+          (onGroupChange)="onCascadeSelectChange($event)"
+        ></p-cascadeSelect>
+                  <p-button [disabled]="buttonDisabled" (onClick)="Actualizar()" class="[&_button]:!w-[37px] [&_button]:!h-[37px] mx-1" severity="success" icon="pi pi-check"></p-button>
+                  <p-button [disabled]="buttonDisabled" (onClick)="closeEdit()" class="[&_button]:!w-[37px] [&_button]:!h-[37px]" severity="danger" icon="pi pi-times"></p-button>
+    </div>
+
+    <div *ngIf="editable && type=='textArea'" class="flex flex-col">
+      
+        <textarea [class]="customStyle"  rows="5" cols="30" pInputTextarea formControlName="detalles"></textarea>
+                  <p-button [disabled]="buttonDisabled" (onClick)="Actualizar()" class="[&_button]:!w-[37px] [&_button]:!h-[37px] mx-1" severity="success" icon="pi pi-check"></p-button>
+                  <p-button [disabled]="buttonDisabled" (onClick)="closeEdit()" class="[&_button]:!w-[37px] [&_button]:!h-[37px]" severity="danger" icon="pi pi-times"></p-button>
+    </div>
+
+    <div *ngIf="editable && type=='rol'" class="flex">
+    <p-dropdown
+    [class]="customStyle+' [&_span]:!w-[150px] [&_span]:!h-[37px] [&_span]:items-center [&_span]:!p-1 [&_.p-dropdown-trigger]:!w-8 [&_.p-dropdown-trigger]:!h-[37px]'"
+    
+    [required]="true"
+    [options]="roles"
+    name="rol"
+    optionLabel="rol"
+    [showClear]="false"
+    placeholder="Selecciona un Rol"
+  ></p-dropdown>
+  
+  <p-button [disabled]="buttonDisabled" (onClick)="Actualizar()" class="[&_button]:!w-[37px] [&_button]:!h-[37px] mx-1" severity="success" icon="pi pi-check"></p-button>
+  <p-button [disabled]="buttonDisabled" (onClick)="closeEdit()" class="[&_button]:!w-[37px] [&_button]:!h-[37px]" severity="danger" icon="pi pi-times"></p-button>
     </div>
   </div>
